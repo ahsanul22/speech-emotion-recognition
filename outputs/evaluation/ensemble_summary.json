@@ -1,0 +1,11 @@
+{
+  "ensemble_validation": {
+    "accuracy": 0.7578347578347578,
+    "macro_f1": 0.7561528930941631
+  },
+  "ensemble_test": {
+    "accuracy": 0.8170580964153276,
+    "macro_f1": 0.8159733684952883
+  },
+  "config": "Ensemble (3 Models) + SpecAugment + L2 5e-4"
+}
