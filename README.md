@@ -60,12 +60,34 @@ Loss function: **focal loss** (sparse, softmax). Optimizer: **Adam** (learning r
 
 Confusion matrix dan detail hasil evaluasi lainnya tersedia di [`outputs/evaluation/`](outputs/evaluation).
 
+## Tampilan Aplikasi
+
+Model ensemble hasil pelatihan di repo ini dipakai pada sebuah prototipe aplikasi web (Flask) untuk melakukan inferensi emosi dari file audio yang diunggah pengguna. Berikut tampilannya.
+
+### Halaman input audio
+
+Pengguna mengunggah file audio (WAV/MP3, maks. 50 MB) lewat drag-and-drop, lalu menekan tombol **Analisis Emosi**.
+
+![Halaman input audio aplikasi SER](docs/screenshots/app-input.png)
+
+### Halaman hasil klasifikasi
+
+Sistem menampilkan emosi dominan beserta tingkat keyakinan, distribusi probabilitas keempat kelas emosi, penjelasan naratif hasil klasifikasi, serta ringkasan analisis (durasi audio, waktu pemrosesan, strategi inferensi, jumlah segmen, ukuran ensemble, dan metode agregasi).
+
+![Halaman hasil klasifikasi aplikasi SER](docs/screenshots/app-result.png)
+
+Strategi inferensi yang dipakai aplikasi: audio ≤ 3 detik diproses satu kali (single pass), audio > 3 detik dipotong dengan sliding window 3 detik (stride 1,5 detik / overlap 50%) lalu digabung dengan **confidence-weighted aggregation** atas prediksi ensemble 3 model.
+
+> Kode aplikasi web tidak disertakan dalam repo ini — repo ini fokus pada eksperimen, pelatihan, dan evaluasi model.
+
 ## Struktur Repo
 
 ```
 .
 ├── SER_Thesis_Final (Ensemble).ipynb   # Notebook utama: preprocessing, training, evaluasi model ensemble
 ├── analyze_emotion.ipynb               # Notebook analisis kualitatif prediksi benar/salah per emosi
+├── docs/
+│   └── screenshots/                    # Tangkapan layar tampilan aplikasi web
 └── outputs/
     ├── audio_examples/                 # Contoh audio asli & hasil augmentasi
     ├── evaluation/                     # Confusion matrix, prediksi, dan ringkasan metrik ensemble
